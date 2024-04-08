@@ -1656,3 +1656,24 @@ footer .copyright-area div a {
     font-weight: 600;
     font-style: italic;
 }
+
+.erroArea {
+    height: 1em;
+    min-height: 1em;
+    margin-bottom: 0.5em;
+}
+
+.erroArea small  {
+    color: var(--red);
+    font-weight: 700;
+}
+
+.outroEnvio {
+    margin-top: 0.5em;
+}
+
+#outroEnvio {
+    font-weight: 700;
+    color: var(--black);
+    font-size: 0.9em;
+}

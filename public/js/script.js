@@ -203,7 +203,6 @@ const btnContacto = 'btn-nav-contacto';
 const mainLogin = 'section-login';
 const btnLogin = 'btn-nav-login';
 
-const mainProfile = 'section-profile';
 const btnProfile = '';
 
 const confirmacao = 'section-sucess'
@@ -220,7 +219,7 @@ function trocaMenu (btn, main1, main2, main3, main4, main5, main6, main7) {
     }
 }
 
-function trocaMenu2 (main1, main2, main3, main4, main5, main6, main7, main8) {
+function trocaMenu2 (main1, main2, main3, main4, main5, main6, main7) {
     selectID(main1).classList.remove('none')
     selectID(main2).classList.add('none')
     selectID(main3).classList.add('none')
@@ -228,51 +227,51 @@ function trocaMenu2 (main1, main2, main3, main4, main5, main6, main7, main8) {
     selectID(main5).classList.add('none')
     selectID(main6).classList.add('none')
     selectID(main7).classList.add('none')
-    selectID(main8).classList.add('none')
 }
 
 selectID(btnInicio).addEventListener('click', ()=> {
-    trocaMenu(btnInicio, mainInicio, mainServicos, mainAgendar, mainSobre, mainContacto, mainLogin, mainProfile)
+    trocaMenu(btnInicio, mainInicio, mainServicos, mainAgendar, mainSobre, mainContacto, mainLogin)
 });
 
 selectID(logoImg).addEventListener('click', ()=> {
-    trocaMenu2(mainInicio, mainAgendar, mainLogin, mainContacto, mainServicos, mainSobre, mainProfile, confirmacao)
+    trocaMenu2(mainInicio, mainAgendar, mainLogin, mainContacto, mainServicos, mainSobre, confirmacao)
     actualizarPage(btnInicio)
 });
 
 selectID(btnServicos).addEventListener('click', ()=> {
-    trocaMenu(btnServicos, mainServicos, mainInicio, mainAgendar, mainSobre, mainContacto, mainLogin, mainProfile)
+    trocaMenu(btnServicos, mainServicos, mainInicio, mainAgendar, mainSobre, mainContacto, mainLogin)
 });
 
 selectID(btnAgendar).addEventListener('click', ()=> {
-    trocaMenu(btnAgendar, mainAgendar, mainServicos, mainInicio, mainSobre, mainContacto, mainLogin, mainProfile)
+    trocaMenu(btnAgendar, mainAgendar, mainServicos, mainInicio, mainSobre, mainContacto, mainLogin)
 });
 
 selectID(btnAgendarBanner).addEventListener('click', ()=> {
-    trocaMenu2(mainAgendar, mainLogin, mainContacto, mainServicos, mainInicio, mainSobre, mainProfile, confirmacao)
+    trocaMenu2(mainAgendar, mainLogin, mainContacto, mainServicos, mainInicio, mainSobre, confirmacao)
     actualizarPage(btnAgendar)
 });
 
 selectID(btnAgendarService).addEventListener('click', ()=> {
-    trocaMenu2(mainAgendar, mainLogin, mainContacto, mainServicos, mainInicio, mainSobre, mainProfile, confirmacao)
+    trocaMenu2(mainAgendar, mainLogin, mainContacto, mainServicos, mainInicio, mainSobre, confirmacao)
     actualizarPage(btnAgendar)
 });
 
 selectID(btnSobre).addEventListener('click', ()=> {
-    trocaMenu(btnSobre, mainSobre, mainInicio, mainAgendar, mainServicos, mainContacto, mainLogin, mainProfile)
+    trocaMenu(btnSobre, mainSobre, mainInicio, mainAgendar, mainServicos, mainContacto, mainLogin)
 });
 
 selectID(btnSobre2).addEventListener('click', ()=> {
-    trocaMenu2(mainSobre, mainAgendar, mainLogin, mainContacto, mainServicos, mainInicio, mainProfile, confirmacao)
+    trocaMenu2(mainSobre, mainAgendar, mainLogin, mainContacto, mainServicos, mainInicio, confirmacao)
     actualizarPage(btnSobre)
 });
 
 selectID(btnContacto).addEventListener('click', ()=> {
-    trocaMenu(btnContacto, mainContacto, mainServicos, mainAgendar, mainInicio, mainSobre, mainLogin, mainProfile)
+    trocaMenu(btnContacto, mainContacto, mainServicos, mainAgendar, mainInicio, mainSobre, mainLogin)
 });
 
 selectID(btnLogin).addEventListener('click', ()=> {
-    trocaMenu2(mainLogin, mainContacto, mainServicos, mainAgendar, mainInicio, mainSobre, mainProfile, confirmacao)
+    trocaMenu2(mainLogin, mainContacto, mainServicos, mainAgendar, mainInicio, mainSobre, confirmacao)
+    formContainer.classList.remove('none')
 });
 
 
@@ -429,7 +428,7 @@ formAgendar.addEventListener('submit', (e) => {
         console.error('Erro ao enviar os dados:', error);
     });
 
-    trocaMenu2(confirmacao, mainInicio, mainContacto, mainServicos, mainAgendar, mainInicio, mainSobre, mainLogin, mainProfile);
+    trocaMenu2(confirmacao, mainInicio, mainContacto, mainServicos, mainAgendar, mainInicio, mainSobre, mainLogin);
 });
 
 
@@ -487,9 +486,9 @@ selectID(formContact).addEventListener('submit', (e)=>{
         console.log("temm erro")
     } else {
         console.log("Nao tem erro")
-        trocaMenu2(confirmacao, mainInicio, mainContacto, mainServicos, mainAgendar, mainInicio, mainSobre, mainLogin, mainProfile);
+        trocaMenu2(confirmacao, mainInicio, mainContacto, mainServicos, mainAgendar, mainInicio, mainSobre, mainLogin);
         setTimeout(() => {
-            trocaMenu2(mainInicio, mainAgendar, mainLogin, mainContacto, mainServicos, mainSobre, mainProfile, confirmacao)
+            trocaMenu2(mainInicio, mainAgendar, mainLogin, mainContacto, mainServicos, mainSobre, confirmacao)
         }, 3000);
         actualizarPage(btnInicio)
     }
@@ -541,12 +540,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const emailForm = selectID('emailForm');
 const formContainer = selectClass('form-container');
+const enviarCod = selectID('envioCod');
+const recCod = selectID('resCod')
+const dados = selectClass('dados');
+const codConfirmacao = selectID('cod-confirmacao');
+const btnConfirmacao = selectID('codConfirmacao');
+const errConfirmacao = selectClass('msgErro');
+const errenvio = selectClass('msgErroEnvio');
+const outroEnvio = selectID('outroEnvio');
+const emailInput = selectID('consult-email');
 
+// Declarar uma variável global para armazenar o código
+let codigoAleatorio;
+
+// Adicionar um evento de escuta para o envio do formulário
 emailForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    const email = document.getElementById('consult-email').value;
 
-    fetch('http://localhost:8000/enviar-email', {
+    const email = emailInput.value;
+
+    const isValidEmail = validarEmail(email)
+    
+    if(isValidEmail){
+        fetch('http://localhost:8000/enviar-email', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -555,8 +571,29 @@ emailForm.addEventListener('submit', function(event) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Código aleatório:', data.codigo);
-
+        // Atribuir o valor de data.codigo à variável global
+        codigoAleatorio = data.codigo;
+        console.log('Código aleatório:', codigoAleatorio);
+        errConfirmacao.classList.add('none')
+        enviarCod.classList.add('none')
+        recCod.classList.remove('none')
+        btnConfirmacao.addEventListener('click', ()=> {
+            if(codConfirmacao.value == codigoAleatorio) {
+                recCod.classList.add('none')
+                errenvio.classList.add('none')
+            } else {
+                errenvio.classList.remove('none')
+            }
+        })
     })
     .catch(error => console.error('Erro:', error));
+    } else {
+        errConfirmacao.classList.remove('none')
+    }
 });
+
+outroEnvio.addEventListener('click', () => {
+    enviarCod.classList.remove('none');
+    recCod.classList.add('none');
+    emailInput.value = '';
+})

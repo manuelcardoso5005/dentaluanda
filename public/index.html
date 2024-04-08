@@ -711,11 +711,22 @@
                 <div class="content">
                     <div class="login-container" id="login-container">
                         <div class="form-container">
-                            <h3>Consultar</h3>
-                            <p>Você pode acessar o seu histórico de consultas digitando o seu email no campo abaixo</p>
                             <form action="" method="get" id="emailForm">
-                                <input type="email" name="consultaEmail" id="consult-email">
-                                <button type="submit" id="">Enviar</button>
+                                <div id="envioCod" class="">
+                                    <h3>Consultar</h3>
+                                    <p>Você pode acessar o seu histórico de consultas digitando o seu email no campo abaixo</p>
+                                    <p class="erroArea"><small class="msgErro none">O campo não pode ficar vazio</small></p>
+                                    <input type="email" name="consultaEmail" id="consult-email">
+                                    <button type="submit" id="">Enviar</button>
+                                </div>
+                                <div id="resCod" class="none">
+                                    <h3>Código enviado</h3>
+                                    <p>Escreva abaixo o código enviado no seu email:</p>
+                                    <p class="erroArea"><small class="msgErroEnvio none">O campo não pode ficar vazio</small></p>
+                                    <input type="text" name="" id="cod-confirmacao" class="">
+                                    <button type="button" id="codConfirmacao">Enviar</button>
+                                    <p class="outroEnvio"><a href="#" id="outroEnvio">Enviar novamente</a></p>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -723,14 +734,6 @@
             </section>
             <!-- MENU LOGIN | FIM -->
 
-            <!-- MENU PROFILE | INÍCIO -->
-            <section id="section-profile" class="none hidden">
-                <div class="content">
-                    
-                </div>
-            </section>
-
-            <!-- MENU PROFILE | FiM -->
             <section id="section-sucess" class="none hidden">
                 <div class="content">
                     <div class="sucess-msg">
@@ -790,6 +793,5 @@
             </button>
         </div>
     </footer>
-   
 </body>
 </html>
