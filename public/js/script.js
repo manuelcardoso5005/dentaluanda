@@ -549,6 +549,7 @@ const errConfirmacao = selectClass('msgErro');
 const errenvio = selectClass('msgErroEnvio');
 const outroEnvio = selectID('outroEnvio');
 const emailInput = selectID('consult-email');
+const profile = selectID('profile');
 
 // Declarar uma variável global para armazenar o código
 let codigoAleatorio;
@@ -581,12 +582,35 @@ emailForm.addEventListener('submit', function(event) {
             if(codConfirmacao.value == codigoAleatorio) {
                 recCod.classList.add('none')
                 errenvio.classList.add('none')
-            } else {
-                errenvio.classList.remove('none')
-            }
-        })
-    })
-    .catch(error => console.error('Erro:', error));
+                fetch('http://localhost:8000/agenda.json')
+                .then((resp) => resp.json())
+                .then((data) => {
+                    const isEmailPresent = data.some(item => item.agendarEmail === emailInput.value);
+                if (isEmailPresent) {
+                    console.log('Email encontrado na agenda.');
+                } else {
+                    profile.innerHTML = `
+                        <h3 class="msgRegister">Nenhum registo de consulta encontrado.</h3>
+                        <a href="#" class="btn btnOutro">Inserir outro email</a>  
+                    `
+                            const btnOutro = selectClass('btnOutro');
+                            const msgRegister = selectClass('msgRegister')
+
+                            btnOutro.addEventListener('click', () => {
+                                enviarCod.classList.remove('none');
+                                recCod.classList.add('none');
+                                btnOutro.classList.add('none');
+                                msgRegister.classList.add('none');
+                                emailInput.value = '';
+                            })
+                        }
+                    }).catch(error => console.error('Erro:', error));
+                } else {
+                    errenvio.classList.remove('none')
+                }
+            })
+        
+        }).catch(error => console.error('Erro:', error));
     } else {
         errConfirmacao.classList.remove('none')
     }
@@ -596,4 +620,6 @@ outroEnvio.addEventListener('click', () => {
     enviarCod.classList.remove('none');
     recCod.classList.add('none');
     emailInput.value = '';
+    codConfirmacao.value = '';
 })
+

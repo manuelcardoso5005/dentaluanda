@@ -1677,3 +1677,11 @@ footer .copyright-area div a {
     color: var(--black);
     font-size: 0.9em;
 }
+
+.msgRegister {
+    margin-bottom: 2em;
+}
+
+#profile {
+    text-align: center;
+}
