@@ -1,0 +1,9 @@
+[
+    {
+        "id":"1",
+        "nome":"admin",
+        "email":"exempo@gmail.com",
+        "senha":"1234",
+        "previlegio":"admin"
+    }
+]

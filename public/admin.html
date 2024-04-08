@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Boostrap -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="css/styleAdmin.css">
+	<script defer src="js/scriptAdmin.js"></script>
+
+	<title>Dentaluanda Gestor</title>
+</head>
+<body>
+	<!-- SIDEBAR -->
+	<section id="sidebar">
+		<a href="#" class="brand">
+			<i class="bi bi-hospital-fill"></i>
+			<span class="text">Dentaluanda</span>
+		</a>
+		<ul class="side-menu top">
+			<li class="active" id="btn-dashboard">
+				<a href="#">
+					<i class="bi bi-columns-gap"></i>
+					<span class="text">Resumo</span>
+				</a>
+			</li>
+			<li id="btn-query">
+				<a href="#">
+					<i class="bi bi-clipboard2-pulse-fill"></i>
+					<span class="text">Consultas</span>
+				</a>
+			</li>
+			<li id="btn-statistic">
+				<a href="#">
+					<i class="bi bi-graph-up"></i>
+					<span class="text">Estatísticas</span>
+				</a>
+			</li>
+			<li id="btn-message">
+				<a href="#">
+					<i class="bi bi-chat-left-dots-fill"></i>
+					<span class="text">Mensagens</span>
+				</a>
+			</li>
+		</ul>
+		<ul class="side-menu">
+			<li id="btn-config">
+				<a href="#">
+					<i class="bi bi-gear-fill"></i>
+					<span class="text">Configurações</span>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="logout">
+					<i class="bi bi-box-arrow-left"></i>
+					<span class="text" id="btnLogout">Sair</span>
+				</a>
+			</li>
+		</ul>
+	</section>
+	<!-- SIDEBAR -->
+
+
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<i class="bi bi-list"></i>
+			<!--<a href="#" class="nav-link">Categorias</a>-->
+			<form action="#">
+				<div class="form-input">
+					<input type="search" placeholder="Pesquisar...">
+					<button type="submit" class="search-btn"><i class="bi bi-search"></i></button>
+				</div>
+			</form>
+			<input type="checkbox" id="switch-mode" hidden>
+			<label for="switch-mode" class="switch-mode"></label>
+			<a href="#" class="notification">
+				<i class="bi bi-bell-fill"></i>
+				<span class="num">8</span>
+			</a>
+			<a href="#" class="profile" id="btn-profile">
+				<img src="img/user/people.jpg">
+			</a>
+		</nav>
+		<!-- NAVBAR -->
+
+		<!-- MAIN -->
+		<main class="" id="dashboard">
+			<div class="head-title">
+				<div class="left">
+					<h1>Dashboard</h1>
+					<ul class="breadcrumb">
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li><i class="bi bi-chevron-right"></i></li>
+						<li>
+							<a class="active" href="#">Resumo</a>
+						</li>
+					</ul>
+				</div><!--
+				<a href="#" class="btn-download">
+					<i class="bi bi-cloud-arrow-down-fill"></i>
+					<span class="text">Download PDF</span>
+				</a>-->
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class="bi bi-calendar-check-fill"></i>
+					<span class="text">
+						<h3 class="consults"></h3>
+						<p >Consultas Marcadas</p>
+					</span>
+				</li>
+				<li>
+					<i class="bi bi-people-fill"></i>
+					<span class="text">
+						<h3 class="solicitadas"></h3>
+						<p>Solicitadas</p>
+					</span>
+				</li>
+				<li>
+					<i class="bi bi-check-square-fill"></i>
+					<span class="text">
+						<h3 class="done"></h3>
+						<p>Total Termindas</p>
+					</span>
+				</li>
+			</ul>
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<h3>Consultas Recentes</h3>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Paciente</th>
+								<th>Data da Consulta</th>
+								<th>Estado</th>
+							</tr>
+						</thead>
+						<tbody class="all-consults">
+							<!--
+							<tr>
+								<td>
+									<img src="img/user/people.jpg">
+									<p>Ana Maria</p>
+								</td>
+								<td>01-10-2024</td>
+								<td><span class="status completed">Terminada</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/user/people.jpg">
+									<p>Ana Maria</p>
+								</td>
+								<td>01-10-2024</td>
+								<td><span class="status pending">Pendente</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/user/people.jpg">
+									<p>Ana Maria</p>
+								</td>
+								<td>01-10-2024</td>
+								<td><span class="status process">Acontencendo</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/user/people.jpg">
+									<p>Ana Maria</p>
+								</td>
+								<td>01-10-2024</td>
+								<td><span class="status pending">Pendente</span></td>
+							</tr>
+							<tr>
+								<td>
+									<img src="img/user/people.jpg">
+									<p>Ana Maria</p>
+								</td>
+								<td>01-10-2024</td>
+								<td><span class="status completed">Terminada</span></td>
+							</tr>-->
+						</tbody>
+					</table>
+				</div>
+				<div class="todo">
+					<div class="head">
+						<h3>Mensagens</h3>
+					</div>
+					<ul class="todo-list">
+						<li class="completed">
+							<p>Todo List</p>
+							<i class="bi bi-three-dots-vertical"></i>
+						</li>
+						<li class="completed">
+							<p>Todo List</p>
+							<i class="bi bi-three-dots-vertical"></i>
+						</li>
+						<li class="not-completed">
+							<p>Todo List</p>
+							<i class="bi bi-three-dots-vertical"></i>
+						</li>
+						<li class="completed">
+							<p>Todo List</p>
+							<i class="bi bi-three-dots-vertical"></i>
+						</li>
+						<li class="not-completed">
+							<p>Todo List</p>
+							<i class="bi bi-three-dots-vertical"></i>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</main>
+		<main class="none" id="query">
+			<p>Consulta!!!</p>
+		</main>
+		<main class="none" id="statistic">
+			<p>Statis!!!</p>searplus
+		</main>
+		<main class="none" id="message">
+			<p>Mensagem!!!</p>
+		</main>
+		<main class="none" id="config">
+			<p>Configurações!!!</p>
+		</main>
+		<main class="none" id="profile">
+			<p>Perfil!!!</p>
+		</main>
+		<main class="none" id="search-main">
+			<p>Pesquisar!!</p>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	
+
+	
+</body>
+</html>
