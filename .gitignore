@@ -1,0 +1,28 @@
+# Arquivos de dependências instaladas
+node_modules/
+
+# Arquivo de logs
+npm-debug.log
+
+# Arquivos de build ou compilação
+build/
+dist/
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.*.local
+
+# Outros arquivos temporários
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Diretório de cache de pacotes npm
+.npm
+
+# Dependendo do editor/IDE que você está usando, também pode querer ignorar
+# arquivos e diretórios gerados por eles, por exemplo:
+.vscode/
+.idea/
