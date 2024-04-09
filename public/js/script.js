@@ -615,14 +615,15 @@ emailForm.addEventListener('submit', function(event) {
                 const dataAgendamentoFormatada = formatarData(consulta.dataAgendamento);
                 consultasHTML += `
                     <div class="card">
-                        <p>Período: ${consulta.agendarPeriodo}</p>
-                        <p>Data: ${consulta.agendarData}</p>
-                        <p>Especialidade: ${consulta.agendarEspecialidade}</p>
-                        <p>Observação: ${consulta.agendarObs}</p>
-                        <p>Data de Agendamento: ${dataAgendamentoFormatada}</p>
-                        <p>Status: ${consulta.status}</p>
+                        <p><span>Período: </span>${consulta.agendarPeriodo}</p>
+                        <p><span>Data da Consulta: </span>${consulta.agendarData}</p>
+                        <p><span>Especialidade: </span>${consulta.agendarEspecialidade}</p>
+                        <p><span>Observação: </span>${consulta.agendarObs}</p>
+                        <p><span>Data de Agendamento: </span>${dataAgendamentoFormatada}</p>
+                        <p><span>Situaçõa: </span>${consulta.status}</p>
                     </div>
                 `;
+                console.log(consulta)
             });
 
             // Exibir informações das consultas e do perfil do usuário
