@@ -554,65 +554,131 @@ const profile = selectID('profile');
 // Declarar uma variável global para armazenar o código
 let codigoAleatorio;
 
+// Função para formatar a data no formato desejado
+const formatarData = (data) => {
+    const mesesAbreviados = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+
+    const date = new Date(data);
+    const dia = date.getDate().toString().padStart(2, '0');
+    const mes = mesesAbreviados[date.getMonth()];
+    const ano = date.getFullYear();
+
+    return `${dia}-${mes}-${ano}`;
+};
+
 // Adicionar um evento de escuta para o envio do formulário
 emailForm.addEventListener('submit', function(event) {
     event.preventDefault();
 
     const email = emailInput.value;
 
-    const isValidEmail = validarEmail(email)
+    const isValidEmail = validarEmail(email);
     
-    if(isValidEmail){
+    if (isValidEmail) {
         fetch('http://localhost:8000/enviar-email', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ consultaEmail: email })
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Atribuir o valor de data.codigo à variável global
-        codigoAleatorio = data.codigo;
-        console.log('Código aleatório:', codigoAleatorio);
-        errConfirmacao.classList.add('none')
-        enviarCod.classList.add('none')
-        recCod.classList.remove('none')
-        btnConfirmacao.addEventListener('click', ()=> {
-            if(codConfirmacao.value == codigoAleatorio) {
-                recCod.classList.add('none')
-                errenvio.classList.add('none')
-                fetch('http://localhost:8000/agenda.json')
-                .then((resp) => resp.json())
-                .then((data) => {
-                    const isEmailPresent = data.some(item => item.agendarEmail === emailInput.value);
-                if (isEmailPresent) {
-                    console.log('Email encontrado na agenda.');
-                } else {
-                    profile.innerHTML = `
-                        <h3 class="msgRegister">Nenhum registo de consulta encontrado.</h3>
-                        <a href="#" class="btn btnOutro">Inserir outro email</a>  
-                    `
-                            const btnOutro = selectClass('btnOutro');
-                            const msgRegister = selectClass('msgRegister')
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ consultaEmail: email })
+        })
+        .then(response => response.json())
+        .then(data => {
+            codigoAleatorio = data.codigo;
+            console.log('Código aleatório:', codigoAleatorio);
+            errConfirmacao.classList.add('none');
+            enviarCod.classList.add('none');
+            recCod.classList.remove('none');
+            btnConfirmacao.addEventListener('click', () => {
+                if (codConfirmacao.value == codigoAleatorio) {
+                    recCod.classList.add('none');
+                    errenvio.classList.add('none');
+                    fetch('http://localhost:8000/agenda.json')
+    .then((resp) => resp.json())
+    .then((data) => {
+        const foundItem = data.find(item => item.agendarEmail === emailInput.value);
+        if (foundItem) {
+            const nome = foundItem.agendarNome;
+            const email = foundItem.agendarEmail;
 
-                            btnOutro.addEventListener('click', () => {
-                                enviarCod.classList.remove('none');
-                                recCod.classList.add('none');
-                                btnOutro.classList.add('none');
-                                msgRegister.classList.add('none');
-                                emailInput.value = '';
-                            })
-                        }
-                    }).catch(error => console.error('Erro:', error));
+            // Filtrar consultas relacionadas ao email do usuário
+            const consultasRelacionadas = data.filter(item => item.agendarEmail === emailInput.value);
+
+            // Contar consultas por status
+            const consultasPendentes = consultasRelacionadas.filter(item => item.status === 'pendente').length;
+            const consultasMarcadas = consultasRelacionadas.filter(item => item.status === 'marcado').length;
+            const consultasTerminadas = consultasRelacionadas.filter(item => item.status === 'terminado').length;
+
+            // Montar HTML para exibir informações das consultas
+            let consultasHTML = '';
+            consultasRelacionadas.forEach(consulta => {
+                const dataAgendamentoFormatada = formatarData(consulta.dataAgendamento);
+                consultasHTML += `
+                    <div class="card">
+                        <p>Período: ${consulta.agendarPeriodo}</p>
+                        <p>Data: ${consulta.agendarData}</p>
+                        <p>Especialidade: ${consulta.agendarEspecialidade}</p>
+                        <p>Observação: ${consulta.agendarObs}</p>
+                        <p>Data de Agendamento: ${dataAgendamentoFormatada}</p>
+                        <p>Status: ${consulta.status}</p>
+                    </div>
+                `;
+            });
+
+            // Exibir informações das consultas e do perfil do usuário
+            profile.innerHTML = `
+                <div class="profile-container">
+                    <p>Nome: <span>${nome}</span></p>
+                    <p>Email: <span>${email}</span></p>
+                </div>
+                <div class="status">
+                    <p>
+                        <span>Consultas Realizadas</span>
+                        <span>${consultasTerminadas}</span>
+                        <i class="bi bi-check-circle-fill"></i>
+                    </p>
+                    <p>
+                        <span>Consultas Agendadas</span>
+                        <span>${consultasMarcadas}</span>
+                        <i class="bi bi-calendar-event"></i>
+                    </p>
+                    <p>
+                        <span>Consultas Pendentes</span>
+                        <span>${consultasPendentes}</span>
+                        <i class="bi bi-hourglass-split"></i>
+                    </p>
+                </div>
+                <div class="consultas-container">
+                    ${consultasHTML}
+                </div>
+            `;
+        } else {
+            profile.innerHTML = `
+                <h3 class="msgRegister">Nenhum registro de consulta encontrado.</h3>
+                <a href="#" class="btn btnOutro">Inserir outro email</a>  
+            `;
+            const btnOutro = selectClass('btnOutro');
+            const msgRegister = selectClass('msgRegister');
+
+            btnOutro.addEventListener('click', () => {
+                enviarCod.classList.remove('none');
+                recCod.classList.add('none');
+                btnOutro.classList.add('none');
+                msgRegister.classList.add('none');
+                emailInput.value = '';
+            });
+        }
+    })
+    .catch(error => console.error('Erro:', error));
+
                 } else {
-                    errenvio.classList.remove('none')
+                    errenvio.classList.remove('none');
                 }
-            })
-        
-        }).catch(error => console.error('Erro:', error));
+            });
+        })
+        .catch(error => console.error('Erro:', error));
     } else {
-        errConfirmacao.classList.remove('none')
+        errConfirmacao.classList.remove('none');
     }
 });
 
@@ -621,5 +687,4 @@ outroEnvio.addEventListener('click', () => {
     recCod.classList.add('none');
     emailInput.value = '';
     codConfirmacao.value = '';
-})
-
+});

@@ -1685,3 +1685,14 @@ footer .copyright-area div a {
 #profile {
     text-align: center;
 }
+
+@media screen and (min-width:900px) {
+    .consultas-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        text-align: left;
+    }
+}
+.status {
+
+}
